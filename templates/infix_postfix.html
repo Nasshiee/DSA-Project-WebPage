@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Infix to Postfix | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item active">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item">Queue Demo</a>
+</nav>
+<div class="card">
+    <h2 class="card-title">Infix to Postfix Conversion</h2>
+    <p class="card-description">
+        Converts arithmetic expressions from Infix notation to Postfix (Reverse Polish Notation) using the Shunting-yard algorithm with syntax validation.
+    </p>
+    <form action="/works/infixpostfix" method="post" id="converterForm">
+        <div class="form-group">
+            <label for="expression" class="form-label">Infix Expression</label>
+            <input type="text" id="expression" name="expression" class="form-input" placeholder="e.g. (A + B) * C" value="{{ expression if expression else '' }}" required>
+            <div class="example-chips">
+                <span style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">Try preset:</span>
+                <button type="button" class="chip-btn" onclick="setExpr('(A + B) * C')">(A + B) * C</button>
+                <button type="button" class="chip-btn" onclick="setExpr('A + B * C')">A + B * C</button>
+                <button type="button" class="chip-btn" onclick="setExpr('((A + B) * C - (D - E)) ^ (F + G)')">((A+B)*C-(D-E))^(F+G)</button>
+                <button type="button" class="chip-btn" onclick="setExpr('(10 + 20) * 30 / 5')">(10+20)*30/5</button>
+                <button type="button" class="chip-btn" style="color: #b91c1c;" onclick="setExpr('A + * B')">A + * B (Error)</button>
+                <button type="button" class="chip-btn" style="color: #b91c1c;" onclick="setExpr('(A + B')">(A + B (Error)</button>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Convert to Postfix</button>
+    </form>
+    {% if error %}
+    <div class="alert-error">
+        <strong>Syntax Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+    {% if postfix_result is not none %}
+    <div class="result-box">
+        <div class="result-label">Postfix Result</div>
+        <div class="result-value">{{ postfix_result }}</div>
+    </div>
+    {% if steps %}
+    <h3 style="font-size: 1rem; font-weight: 600; margin-top: 32px; margin-bottom: 8px;">Step-by-Step Conversion</h3>
+    <div class="steps-wrapper">
+        {% for s in steps %}
+        <p class="step-item">
+            <strong>Step {{ s.step }}:</strong> Symbol: <strong>{{ s.symbol }}</strong> &mdash; {{ s.action }} | Stack: <code>{{ s.stack }}</code> | Output: <code>{{ s.output }}</code>
+        </p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+<script>
+function setExpr(val) {
+    document.getElementById('expression').value = val;
+}
+</script>
+{% endblock %}

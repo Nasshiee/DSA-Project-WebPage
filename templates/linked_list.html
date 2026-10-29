@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Linked List Demo | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item active">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item">Queue Demo</a>
+</nav>
+<div class="ll-visualization-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+            <h2 class="card-title" style="margin-bottom: 4px;">Singly Linked List Visualization</h2>
+            <p class="card-description" style="margin-bottom: 0;">Interactive memory chain representation. Total Nodes: <strong>{{ nodes|length }}</strong></p>
+        </div>
+        <form method="post" action="/works/linkedlist" style="display: inline;">
+            <input type="hidden" name="action" value="reset">
+            <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">Reset Demo</button>
+        </form>
+    </div>
+    <div class="ll-chain">
+        <span class="ll-head-badge">Head</span>
+        <span class="ll-arrow">&rarr;</span>
+        {% if nodes %}
+            {% for item in nodes %}
+            <div class="ll-node-item">
+                <div class="ll-node">
+                    <span class="ll-node-data">{{ item }}</span>
+                    <span class="ll-node-pointer">&bull;</span>
+                </div>
+                <span class="ll-arrow">&rarr;</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+        <span class="ll-null">NULL</span>
+    </div>
+    {% if message %}
+    <div class="alert-success">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert-error">
+        {{ error }}
+    </div>
+    {% endif %}
+</div>
+<div class="ll-operations-grid">
+    <div class="ll-op-card">
+        <h4>1. insertatbeginning</h4>
+        <p>Prepend a new node as the new head.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="insertatbeginning">
+            <div class="form-group">
+                <input type="text" name="data" class="form-input" placeholder="Node value..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Insert at Beginning</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>2. insertatend</h4>
+        <p>Append a new node to the end of the chain.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="insertatend">
+            <div class="form-group">
+                <input type="text" name="data" class="form-input" placeholder="Node value..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Insert at End</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>3. insertafter</h4>
+        <p>Insert a node directly after a target value.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="insertafter">
+            <div class="form-group">
+                <input type="text" name="target" class="form-input" placeholder="Target value..." style="margin-bottom: 8px;" required>
+                <input type="text" name="data" class="form-input" placeholder="New node value..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Insert After</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>4. removeatbeginning</h4>
+        <p>Delete and pop the first node.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="removeatbeginning">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 18px;" {% if not nodes %}disabled{% endif %}>
+                Remove at Beginning
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>5. removeatend</h4>
+        <p>Traverse to the end and remove the tail node.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="removeatend">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 18px;" {% if not nodes %}disabled{% endif %}>
+                Remove at End
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>6. removetarget</h4>
+        <p>Search and remove a specific target node value.</p>
+        <form method="post" action="/works/linkedlist">
+            <input type="hidden" name="action" value="removetarget">
+            <div class="form-group">
+                <input type="text" name="target" class="form-input" placeholder="Target value to remove..." required>
+            </div>
+            <button type="submit" class="btn btn-secondary" style="width: 100%;" {% if not nodes %}disabled{% endif %}>
+                Remove Target
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

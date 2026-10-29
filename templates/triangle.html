@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Area of Triangle | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item active">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item">Queue Demo</a>
+</nav>
+<div class="card">
+    <h2 class="card-title">Calculate Area of a Triangle</h2>
+    <p class="card-description">Compute the triangle area using the formula: \(A = \frac{1}{2} \times \text{base} \times \text{height}\).</p>
+    <form action="/works/area/triangle" method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="base" class="form-label">Base (b)</label>
+                <input type="text" id="base" name="base" class="form-input" placeholder="e.g. 10 or 4.5" value="{{ base if base else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="height" class="form-label">Height (h)</label>
+                <input type="text" id="height" name="height" class="form-input" placeholder="e.g. 5 or 3.2" value="{{ height if height else '' }}" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Compute Area</button>
+    </form>
+    {% if error %}
+    <div class="alert-error">
+        {{ error }}
+    </div>
+    {% endif %}
+    {% if result is not none %}
+    <div class="result-box">
+        <div class="result-label">Calculated Area</div>
+        <div class="result-value">{{ result }}</div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

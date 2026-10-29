@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Home | Portfolio{% endblock %}
+{% block content %}
+<div class="home-hero">
+    <div class="home-avatar-wrapper">
+        <img src="{{ url_for('static', filename='images/cca6a353-3cc9-4171-8933-d4a8d28faa06.jpg') }}"
+            alt="Profile Picture" class="home-avatar">
+    </div>
+    <h1 class="home-title">Welcome to my website</h1>
+</div>
+{% endblock %}

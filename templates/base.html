@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li>
+                        <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+                    </li>
+                    <li>
+                        <a href="/profile"
+                            class="nav-link {% if request.path == '/profile' %}active{% endif %}">Profile</a>
+                    </li>
+                    <li>
+                        <a href="/works"
+                            class="nav-link {% if request.path.startswith('/works') %}active{% endif %}">Works</a>
+                    </li>
+                    <li>
+                        <a href="/contact"
+                            class="nav-link {% if request.path.startswith('/contact') %}active{% endif %}">Contacts</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

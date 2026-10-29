@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Stack Demo | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item active">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item">Queue Demo</a>
+</nav>
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+            <h2 class="card-title" style="margin-bottom: 4px;">Stack (LIFO) Visualization</h2>
+            <p class="card-description" style="margin-bottom: 0;">Last-In, First-Out memory representation. Size: <strong>{{ items|length }}</strong></p>
+        </div>
+        <form method="post" action="/works/stack" style="display: inline;">
+            <input type="hidden" name="action" value="reset">
+            <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">Reset Demo</button>
+        </form>
+    </div>
+    <div class="stack-viz-container">
+        <div class="stack-base"></div>
+        {% if items %}
+            {% for item in items %}
+            <div class="stack-item {% if loop.last %}is-top{% endif %}">
+                <span>{{ item }}</span>
+                {% if loop.last %}
+                <span class="stack-top-badge">Top</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="stack-empty-msg">[ Stack is Empty ]</div>
+        {% endif %}
+    </div>
+    {% if message %}
+    <div class="alert-success">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if peek_item %}
+    <div class="result-box" style="margin-top: 16px;">
+        <div class="result-label">Peek Result</div>
+        <div class="result-value">Top Element: {{ peek_item }}</div>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert-error">
+        {{ error }}
+    </div>
+    {% endif %}
+</div>
+<div class="ll-operations-grid">
+    <div class="ll-op-card">
+        <h4>1. push(item)</h4>
+        <p>Push a new element onto the top of the stack.</p>
+        <form method="post" action="/works/stack">
+            <input type="hidden" name="action" value="push">
+            <div class="form-group">
+                <input type="text" name="data" class="form-input" placeholder="Element value..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Push onto Stack</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>2. pop()</h4>
+        <p>Remove and return the element at the top.</p>
+        <form method="post" action="/works/stack">
+            <input type="hidden" name="action" value="pop">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Pop Top Element
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>3. peek()</h4>
+        <p>View the top element without removing it.</p>
+        <form method="post" action="/works/stack">
+            <input type="hidden" name="action" value="peek">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Peek Top Element
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>4. clear()</h4>
+        <p>Remove all elements from the stack.</p>
+        <form method="post" action="/works/stack">
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Clear Entire Stack
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Queue Demo | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item active">Queue Demo</a>
+</nav>
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+            <h2 class="card-title" style="margin-bottom: 4px;">Queue (Linked List FIFO) Visualization</h2>
+            <p class="card-description" style="margin-bottom: 0;">Linked list queue with Head and Tail pointers. Elements: <strong>{{ items|length }}</strong></p>
+        </div>
+        <form method="post" action="/works/queue" style="display: inline;">
+            <input type="hidden" name="action" value="reset">
+            <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">Reset Demo</button>
+        </form>
+    </div>
+    <div class="queue-viz-container">
+        <span class="queue-badge-front">Front (Head)</span>
+        <span class="ll-arrow">&rarr;</span>
+        {% if items %}
+            {% for item in items %}
+            <div class="queue-node-item">
+                <div class="ll-node">
+                    <span class="ll-node-data">{{ item }}</span>
+                    <span class="ll-node-pointer">&bull;</span>
+                </div>
+                <span class="ll-arrow">&rarr;</span>
+            </div>
+            {% endfor %}
+        {% else %}
+            <span class="stack-empty-msg">[ Queue is Empty ]</span>
+            <span class="ll-arrow">&rarr;</span>
+        {% endif %}
+        <span class="queue-badge-rear">Rear (Tail)</span>
+    </div>
+    {% if message %}
+    <div class="alert-success">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if peek_item %}
+    <div class="result-box" style="margin-top: 16px;">
+        <div class="result-label">Front Element (Peek)</div>
+        <div class="result-value">{{ peek_item }}</div>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert-error">
+        {{ error }}
+    </div>
+    {% endif %}
+</div>
+<div class="ll-operations-grid">
+    <div class="ll-op-card">
+        <h4>1. enqueue(data) / queue(data)</h4>
+        <p>Insert a new node at the rear (tail) of the queue.</p>
+        <form method="post" action="/works/queue">
+            <input type="hidden" name="action" value="enqueue">
+            <div class="form-group">
+                <input type="text" name="data" class="form-input" placeholder="Element value..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Enqueue to Rear</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>2. dequeue()</h4>
+        <p>Remove and return the element at the front (head).</p>
+        <form method="post" action="/works/queue">
+            <input type="hidden" name="action" value="dequeue">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Dequeue Front
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>3. peek() / front()</h4>
+        <p>View the front element without removing it.</p>
+        <form method="post" action="/works/queue">
+            <input type="hidden" name="action" value="peek">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Peek Front
+            </button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>4. clear()</h4>
+        <p>Remove all elements and reset head and tail pointers.</p>
+        <form method="post" action="/works/queue">
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not items %}disabled{% endif %}>
+                Clear Entire Queue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
