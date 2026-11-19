@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-header">
     <h1 class="page-title">Programming Works</h1>
-    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+    <p class="page-subtitle">Data Structures and Algorithms exercises.</p>
 </section>
 <nav class="tabs-nav">
     <a href="/works" class="tab-item">To Uppercase</a>
@@ -13,19 +13,22 @@
     <a href="/works/stack" class="tab-item">Stack Demo</a>
     <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
     <a href="/works/queue" class="tab-item">Queue Demo</a>
+    <a href="/works/binarytree" class="tab-item">Binary Tree</a>
 </nav>
 <div class="card">
     <h2 class="card-title">Calculate Area of a Triangle</h2>
-    <p class="card-description">Compute the triangle area using the formula: \(A = \frac{1}{2} \times \text{base} \times \text{height}\).</p>
+    <p class="card-description">Enter a base and height to compute the area of a triangle.</p>
     <form action="/works/area/triangle" method="post">
         <div class="form-row">
             <div class="form-group">
-                <label for="base" class="form-label">Base (b)</label>
-                <input type="text" id="base" name="base" class="form-input" placeholder="e.g. 10 or 4.5" value="{{ base if base else '' }}" required>
+                <label for="base" class="form-label">Base Value</label>
+                <input type="text" id="base" name="base" class="form-input" placeholder="e.g. 10 or 4.5"
+                    value="{{ base if base else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="height" class="form-label">Height (h)</label>
-                <input type="text" id="height" name="height" class="form-input" placeholder="e.g. 5 or 3.2" value="{{ height if height else '' }}" required>
+                <label for="height" class="form-label">Height Value</label>
+                <input type="text" id="height" name="height" class="form-input" placeholder="e.g. 5 or 3.2"
+                    value="{{ height if height else '' }}" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Compute Area</button>

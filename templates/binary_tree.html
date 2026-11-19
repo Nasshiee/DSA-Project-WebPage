@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Binary Tree Demo | Works{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">Programming Works</h1>
+    <p class="page-subtitle">Data Structures and Algorithms exercises.</p>
+</section>
+<nav class="tabs-nav">
+    <a href="/works" class="tab-item">To Uppercase</a>
+    <a href="/works/area/circle" class="tab-item">Area of Circle</a>
+    <a href="/works/area/triangle" class="tab-item">Area of Triangle</a>
+    <a href="/works/linkedlist" class="tab-item">Linked List Demo</a>
+    <a href="/works/stack" class="tab-item">Stack Demo</a>
+    <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
+    <a href="/works/queue" class="tab-item">Queue Demo</a>
+    <a href="/works/binarytree" class="tab-item active">Binary Tree</a>
+</nav>
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+            <h2 class="card-title" style="margin-bottom: 4px;">Binary Tree Visualization</h2>
+            <p class="card-description" style="margin-bottom: 0;">Hierarchical binary tree with preorder, inorder, and postorder traversals.</p>
+        </div>
+        <form method="post" action="/works/binarytree" style="display: inline;">
+            <input type="hidden" name="action" value="load_default">
+            <button type="submit" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">Reset Demo Tree</button>
+        </form>
+    </div>
+    {% macro render_tree_node(node) %}
+    {% if node %}
+    <div class="tree-node-wrapper">
+        <span class="tree-node-badge">{{ node.value }}</span>
+        {% if node.left or node.right %}
+        <div class="tree-children">
+            <div class="tree-child">
+                <span class="tree-branch-label">L</span>
+                {% if node.left %}
+                {{ render_tree_node(node.left) }}
+                {% else %}
+                <span class="tree-null">None</span>
+                {% endif %}
+            </div>
+            <div class="tree-child">
+                <span class="tree-branch-label">R</span>
+                {% if node.right %}
+                {{ render_tree_node(node.right) }}
+                {% else %}
+                <span class="tree-null">None</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endmacro %}
+    <div class="tree-viz-container">
+        {% if tree_data %}
+        {{ render_tree_node(tree_data) }}
+        {% else %}
+        <span class="stack-empty-msg">[ Binary Tree is Empty ]</span>
+        {% endif %}
+    </div>
+    {% if message %}
+    <div class="alert-success" style="margin-top: 16px;">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if search_result %}
+    <div class="result-box" style="margin-top: 16px;">
+        <div class="result-label">Search Result</div>
+        <div class="result-value">{{ search_result }}</div>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert-error" style="margin-top: 16px;">
+        {{ error }}
+    </div>
+    {% endif %}
+    <div style="margin-top: 24px;">
+        <p class="info-item"><strong>Total Nodes:</strong> <span>{{ node_count }}</span></p>
+        <p class="info-item"><strong>Tree Height:</strong> <span>{{ tree_height }}</span></p>
+        <p class="info-item"><strong>Preorder Traversal:</strong> <code>{{ preorder if preorder else '(Empty)' }}</code></p>
+        <p class="info-item"><strong>Inorder Traversal:</strong> <code>{{ inorder if inorder else '(Empty)' }}</code></p>
+        <p class="info-item"><strong>Postorder Traversal:</strong> <code>{{ postorder if postorder else '(Empty)' }}</code></p>
+    </div>
+</div>
+<div class="ll-operations-grid">
+    <div class="ll-op-card">
+        <h4>1. set_root(value)</h4>
+        <p>Sets or replaces the root node of the binary tree.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="set_root">
+            <div class="form-group">
+                <input type="text" name="value" class="form-input" placeholder="Root value (e.g. R)" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Set Root Node</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>2. insert_left(parent, value)</h4>
+        <p>Inserts a new node as the left child of a parent.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="insert_left">
+            <div class="form-group">
+                <input type="text" name="parent" class="form-input" placeholder="Parent node value" style="margin-bottom: 8px;" required>
+                <input type="text" name="value" class="form-input" placeholder="New child value" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Insert Left Child</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>3. insert_right(parent, value)</h4>
+        <p>Inserts a new node as the right child of a parent.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="insert_right">
+            <div class="form-group">
+                <input type="text" name="parent" class="form-input" placeholder="Parent node value" style="margin-bottom: 8px;" required>
+                <input type="text" name="value" class="form-input" placeholder="New child value" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Insert Right Child</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>4. find(value)</h4>
+        <p>Searches the binary tree for a specific node value.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="find">
+            <div class="form-group">
+                <input type="text" name="value" class="form-input" placeholder="Value to search" required>
+            </div>
+            <button type="submit" class="btn btn-secondary" style="width: 100%;">Search Node</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>5. load_default()</h4>
+        <p>Loads the standard textbook sample binary tree.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="load_default">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;">Load Default Tree</button>
+        </form>
+    </div>
+    <div class="ll-op-card">
+        <h4>6. clear()</h4>
+        <p>Removes all nodes from the binary tree.</p>
+        <form method="post" action="/works/binarytree">
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;" {% if not tree_data %}disabled{% endif %}>Clear Tree</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

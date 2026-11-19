@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-header">
     <h1 class="page-title">Programming Works</h1>
-    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+    <p class="page-subtitle">Data Structures and Algorithms exercises.</p>
 </section>
 <nav class="tabs-nav">
     <a href="/works" class="tab-item">To Uppercase</a>
@@ -13,14 +13,16 @@
     <a href="/works/stack" class="tab-item">Stack Demo</a>
     <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
     <a href="/works/queue" class="tab-item">Queue Demo</a>
+    <a href="/works/binarytree" class="tab-item">Binary Tree</a>
 </nav>
 <div class="card">
     <h2 class="card-title">Calculate Area of a Circle</h2>
-    <p class="card-description">Enter a radius value to compute the circle area (\(A = \pi r^2\)).</p>
+    <p class="card-description">Enter a radius value to compute the area of a circle.</p>
     <form action="/works/area/circle" method="post">
         <div class="form-group">
-            <label for="radius" class="form-label">Radius (r)</label>
-            <input type="text" id="radius" name="radius" class="form-input" placeholder="e.g. 5 or 2.5" value="{{ radius if radius else '' }}" required>
+            <label for="radius" class="form-label">Radius Value</label>
+            <input type="text" id="radius" name="radius" class="form-input" placeholder="e.g. 5 or 2.5"
+                value="{{ radius if radius else '' }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Compute Area</button>
     </form>

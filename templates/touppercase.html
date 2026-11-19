@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-header">
     <h1 class="page-title">Programming Works</h1>
-    <p class="page-subtitle">Interactive algorithmic and utility tools built with Python & Flask.</p>
+    <p class="page-subtitle">Data Structures and Algorithms exercises.</p>
 </section>
 <nav class="tabs-nav">
     <a href="/works" class="tab-item active">To Uppercase</a>
@@ -13,16 +13,18 @@
     <a href="/works/stack" class="tab-item">Stack Demo</a>
     <a href="/works/infixpostfix" class="tab-item">Infix to Postfix</a>
     <a href="/works/queue" class="tab-item">Queue Demo</a>
+    <a href="/works/binarytree" class="tab-item">Binary Tree</a>
 </nav>
 <div class="card">
     <h2 class="card-title">Convert String to Uppercase</h2>
-    <p class="card-description">Enter any text below to convert it to uppercase using server-side Python processing.</p>
+    <p class="card-description">Enter any text below to convert it to uppercase.</p>
     <form action="/works" method="post">
         <div class="form-group">
             <label for="inputString" class="form-label">Input String</label>
-            <input type="text" id="inputString" name="inputString" class="form-input" placeholder="e.g. hello world" value="{{ input_string if input_string else '' }}" required>
+            <input type="text" id="inputString" name="inputString" class="form-input" placeholder="e.g. hello world"
+                value="{{ input_string if input_string else '' }}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Convert String</button>
+        <button type="submit" class="btn btn-primary">Convert Text</button>
     </form>
     {% if error %}
     <div class="alert-error">
